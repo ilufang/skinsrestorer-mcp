@@ -40,7 +40,8 @@ public class MojangAPI {
 	private static final String haspaidurl = "https://minecraft.net/haspaid.jsp?user=";
 
 	public static boolean hasPaid(String name) throws MalformedURLException {
-		return Boolean.parseBoolean(readURL(new URL(haspaidurl + name)));
+		// return Boolean.parseBoolean(readURL(new URL(haspaidurl + name)));
+		return true;
 	}
 
 	public static Profile getProfile(String name) throws MalformedURLException {
