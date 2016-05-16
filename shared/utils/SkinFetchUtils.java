@@ -23,6 +23,7 @@ import skinsrestorer.shared.format.Profile;
 import skinsrestorer.shared.format.SkinProfile;
 import skinsrestorer.shared.storage.LocaleStorage;
 import skinsrestorer.shared.utils.SkinFetchUtils.SkinFetchFailedException.Reason;
+import org.json.JSONException;
 
 public class SkinFetchUtils {
 
@@ -46,6 +47,8 @@ public class SkinFetchUtils {
 
 			return sp;
 
+		} catch (JSONException e) {
+			throw new SkinFetchFailedException(Reason.JSON_PROBLEM);
 		} catch (Exception e) {
 			throw new SkinFetchFailedException(e);
 		}
@@ -79,7 +82,8 @@ public class SkinFetchUtils {
 			RATE_LIMITED(c(LocaleStorage.getInstance().SKIN_FETCH_FAILED_RATE_LIMITED)),
 			GENERIC_ERROR(c(LocaleStorage.getInstance().SKIN_FETCH_FAILED_ERROR)),
 			MCAPI_FAILED(c(LocaleStorage.getInstance().SKIN_FETCH_FAILED_ERROR)),
-			MCAPI_PROBLEM(c(LocaleStorage.getInstance().SKIN_FETCH_FAILED_MCAPI_PROBLEM));
+			MCAPI_PROBLEM(c(LocaleStorage.getInstance().SKIN_FETCH_FAILED_MCAPI_PROBLEM)),
+			JSON_PROBLEM(c(LocaleStorage.getInstance().SKIN_FETCH_FAILED_MALFORMED_JSON));
 
 			private String exceptionCause;
 

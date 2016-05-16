@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.*;
+
 import skinsrestorer.shared.format.Profile;
 import skinsrestorer.shared.format.SkinProfile;
 import skinsrestorer.shared.format.SkinProperty;
@@ -52,15 +54,16 @@ public class MojangAPI {
 			return null;
 	}
 
-	public static SkinProfile getSkinProfile(String uuid, String name) throws MalformedURLException {
+	public static SkinProfile getSkinProfile(String uuid, String name) throws MalformedURLException, JSONException {
 		String output = readURL(new URL(skinurl + uuid + "?unsigned=false"));
 
-		String valuebeg = "value\":\"";
-		String mid = "\",\"signature\":\"";
-		String signatureend = "\"}]}";
+		// String valuebeg = "value\":\"";
+		// String mid = "\",\"signature\":\"";
+		// String signatureend = "\"}]}";
 
 		if (output == null || output.contains("TooManyRequestsException")) {
 
+			/*
 			if (!ConfigStorage.getInstance().MCAPI_ENABLED)
 				return null;
 
@@ -75,10 +78,19 @@ public class MojangAPI {
 			valuebeg = ",\"value\": \"";
 			mid = "\",\"signature\": \"";
 			signatureend = "\"},\"properties";
+			*/
+			// Do NOT use alternative for now
+			return null;
 		}
 
-		String value = getStringBetween(output, valuebeg, mid);
-		String signature = getStringBetween(output, mid, signatureend);
+		JSONObject data = new JSONObject(output);
+
+		// String value = getStringBetween(output, valuebeg, mid);
+		// String signature = getStringBetween(output, mid, signatureend);
+
+		JSONObject props = data.getJSONArray("properties").getJSONObject(0);
+		String value = props.getString("value");
+		String signature = props.getString("signature");
 
 		return new SkinProfile(new Profile(uuid, name), new SkinProperty("textures", value, signature),
 				System.currentTimeMillis(), true);

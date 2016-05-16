@@ -29,6 +29,7 @@ public class LocaleStorage {
 	public String SKIN_FETCH_FAILED = "&4Skin fetch failed: ";
 	public String MCAPI_FAILED_ERROR = "&cTried to use mcapi.ca, but it failed.";
 	public String TRYING_TO_USE_NCAPI = "[SkinsRestorer] Getting skin from Mojang failed. Using mcapi.ca!";
+	public String SKIN_FETCH_FAILED_MALFORMED_JSON = "&cReturned JSON is not correctly formatted.";
 
 	public String USE_SKIN_HELP = "&9Use '/skin help' for help.";
 	public String PLAYER_HELP = "&8]&7&m-------------&r&8[ &9SkinsRestorer Help &8]&7&m-------------*r&8[\n&9/skin set <skinname> &9-&a Sets your skin.\n&9/skin clear &9-&a Clears your skin.";
